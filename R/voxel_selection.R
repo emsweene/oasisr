@@ -85,6 +85,8 @@ voxel_selection_with_erosion <- function(
                                 brain_mask = ero_brain_mask,
                                 cutoff = .15)
   
+  flair = zscore_img(flair, mask = brain_mask, margin = NULL)
+  
   if (verbose) {
     message("Voxel Selection Procedure")
   }
