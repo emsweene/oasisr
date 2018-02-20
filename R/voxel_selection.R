@@ -66,7 +66,6 @@ voxel_selection_with_erosion <- function(
   eroder = c("fsl", "oasis")
 ){
   
-  brain_mask <- correct_image_dim(brain_mask)
   if (verbose) {
     message("Eroding Brain Mask")
   }
