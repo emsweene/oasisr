@@ -31,14 +31,17 @@
 #' (no more than 4 is useful for this software implementation)
 #' @param sigma Sigmas used to smooth the data, default is 10,20
 #' @param verbose print diagnostic output
-#' @param eroder Should \code{\link{fslerode}} or \code{\link{oasis_erode}} be used
+#' @param eroder Should \code{\link{fslerode}} or \code{\link{oasis_erode}} 
+#' be used
 #'
 #' @return If \code{return_preproc = FALSE} the function returns a
 #' \code{data.frame} for use with the \code{\link{oasis_training}} function.
 #' Otherwise, the function returns a list containing:
-#' a \code{data.frame} for use with the \code{\link{oasis_training}} function,
+#' a \code{data.frame} for use with the \code{\link{oasis_training}} 
+#' function,
 #' the FLAIR volume, the T1 volume, the T2 volume,
-#' the PD volume, the brain mask for the subject, and the voxel selection mask.
+#' the PD volume, the brain mask for the subject, and the voxel selection 
+#' mask.
 #' @seealso \code{\link{oasis_training}}
 #' @export
 #' @importFrom neurobase zscore_img

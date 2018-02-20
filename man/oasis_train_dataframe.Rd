@@ -51,15 +51,18 @@ the preprocessed images should be returned}
 
 \item{verbose}{print diagnostic output}
 
-\item{eroder}{Should \code{\link{fslerode}} or \code{\link{oasis_erode}} be used}
+\item{eroder}{Should \code{\link{fslerode}} or \code{\link{oasis_erode}} 
+be used}
 }
 \value{
 If \code{return_preproc = FALSE} the function returns a
 \code{data.frame} for use with the \code{\link{oasis_training}} function.
 Otherwise, the function returns a list containing:
-a \code{data.frame} for use with the \code{\link{oasis_training}} function,
+a \code{data.frame} for use with the \code{\link{oasis_training}} 
+function,
 the FLAIR volume, the T1 volume, the T2 volume,
-the PD volume, the brain mask for the subject, and the voxel selection mask.
+the PD volume, the brain mask for the subject, and the voxel selection 
+mask.
 }
 \description{
 This function creates the training vectors from a single MRI

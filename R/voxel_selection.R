@@ -38,7 +38,7 @@
 voxel_selection <- function(flair, ##the flair volume
                             brain_mask, ## a brain mask for the flair
                             cutoff ## the percentile cutoff for the thresholding
-                            ){
+){
   stopifnot(length(cutoff) == 1)
   # arr = array(brain_mask, dim = dim(brain_mask))
   arr = as(brain_mask, Class = "array")
@@ -51,4 +51,50 @@ voxel_selection <- function(flair, ##the flair volume
   outmask   <-    datatyper(outmask, trybyte = TRUE)
   ##return the binary mask of the flair values above the cutpoint
   return(outmask)
+}
+
+#' @rdname voxel_selection
+#' @param verbose print diagnostic output
+#' @param eroder Should \code{\link{fslerode}} or \code{\link{oasis_erode}} 
+#' be used
+#'
+#' @export
+voxel_selection_with_erosion <- function(
+  flair, ##the flair volume
+  brain_mask, ## a brain mask for the flair
+  verbose = TRUE,
+  eroder = c("fsl", "oasis")
+){
+  
+  brain_mask <- correct_image_dim(brain_mask)
+  if (verbose) {
+    message("Eroding Brain Mask")
+  }
+  eroder = match.arg(eroder)
+  if (eroder == "fsl") {
+    ero_brain_mask <- fslerode(brain_mask,
+                               kopts = "-kernel box 5x5x5",
+                               retimg = TRUE)
+  }
+  if (eroder == "oasis") {
+    ero_brain_mask <- oasis_erode(mask = brain_mask,
+                                  mm = c(5,5,5))
+  }
+  
+  ##removing voxels below 15th quantile
+  brain_mask <- voxel_selection(flair = flair,
+                                brain_mask = ero_brain_mask,
+                                cutoff = .15)
+  
+  if (verbose) {
+    message("Voxel Selection Procedure")
+  }
+  ##create and apply the voxel selection mask
+  top_voxels <- voxel_selection(flair = flair,
+                                brain_mask = brain_mask,
+                                cutoff = .85)
+  L = list(brain_mask = brain_mask,
+           voxel_selection = top_voxels)
+  return(L)
+  
 }

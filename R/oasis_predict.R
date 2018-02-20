@@ -19,6 +19,14 @@
 #' @param threshold numeric indicating the threshold value
 #' for the probability map, with default of 0.16 for the OASIS paper
 #' @param verbose print diagnostic messages
+#' @param oasis_dataframe if \code{\link{oasis_train_dataframe}}
+#' was already run, specify the \code{data.frame} and 
+#' \code{voxel_selection} and \code{brain_mask} to make prediction
+#' @param voxel_selection image of selected voxels.  
+#' If \code{\link{oasis_train_dataframe}}
+#' was already run, specify the \code{data.frame} and 
+#' \code{voxel_selection} and \code{brain_mask} to make prediction
+#' 
 #' @param ... options passed to \code{\link{oasis_train_dataframe}}
 #'
 #' @return A list of volumes:
@@ -90,24 +98,37 @@ oasis_predict <- function(flair, ##flair volume of class nifti
                           binary = FALSE,
                           threshold = 0.16,
                           verbose = TRUE,
+                          oasis_dataframe = NULL,
+                          voxel_selection = NULL,
                           ...
 ) {
-  L = oasis_train_dataframe(flair = flair,
-                            t1 = t1,
-                            t2 = t2,
-                            pd = pd,
-                            brain_mask = brain_mask,
-                            verbose = verbose,
-                            return_preproc = TRUE,
-                            ...)
-
-  oasis_dataframe = L$oasis_dataframe
-  brain_mask = L$brain_mask
-  voxel_selection = L$voxel_selection
-  preproc = L$preproc
-  rm(list = "L")
-
-
+  if (!is.null(oasis_dataframe) && !is.null(voxel_selection)
+      && !is.null(brain_mask)) {
+    L = oasis_train_dataframe(flair = flair,
+                              t1 = t1,
+                              t2 = t2,
+                              pd = pd,
+                              brain_mask = brain_mask,
+                              verbose = verbose,
+                              return_preproc = TRUE,
+                              ...)
+    
+    oasis_dataframe = L$oasis_dataframe
+    brain_mask = L$brain_mask
+    voxel_selection = L$voxel_selection
+    preproc = L$preproc
+    rm(list = "L")
+  } else {
+    if (return_preproc) {
+      warning(paste0("No preprocessing was done as the ", 
+                     "voxel_selection, brain mask, and data frame were", 
+                     " specified"))
+      return_preproc = FALSE
+    }
+    preproc = list()
+  }
+  
+  
   if (verbose) {
     message("Model Prediction")
   }
@@ -121,15 +142,15 @@ oasis_predict <- function(flair, ##flair volume of class nifti
                            newdata = oasis_dataframe,
                            type = 'response')
   }
-
-
+  
+  
   ##put the predictions onto the brain
   predictions_nifti <- niftiarr(brain_mask, 0)
   predictions_nifti[voxel_selection == 1] <- predictions
   predictions_nifti = datatyper(predictions_nifti, 
                                 datatype = convert.datatype()$FLOAT32,
                                 bitpix = convert.bitpix()$FLOAT32
-                                )
+  )
   if (verbose) {
     message("Smoothing Prediction")
   }
@@ -137,7 +158,7 @@ oasis_predict <- function(flair, ##flair volume of class nifti
   prob_map <- fslsmooth(predictions_nifti, sigma = 1.25,
                         mask = brain_mask, retimg = TRUE,
                         smooth_mask = TRUE)
-
+  
   binary_map = NULL
   if (binary == TRUE) {
     if (verbose) {
@@ -159,13 +180,13 @@ oasis_predict <- function(flair, ##flair volume of class nifti
   if (!return_preproc) {
     L$flair = L$t1 = L$t2 = L$pd = NULL
   }
-
+  
   if (!binary) {
     L$binary_map = NULL
   }
-
+  
   return(L)
-
+  
 }
 
 
