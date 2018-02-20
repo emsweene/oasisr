@@ -176,6 +176,7 @@ oasis_predict <- function(flair, ##flair volume of class nifti
            pd = preproc$pd,
            brain_mask = brain_mask,
            voxel_selection = voxel_selection)
+  L$threshold = threshold
   
   if (!return_preproc) {
     L$flair = L$t1 = L$t2 = L$pd = NULL
@@ -183,6 +184,7 @@ oasis_predict <- function(flair, ##flair volume of class nifti
   
   if (!binary) {
     L$binary_map = NULL
+    L$threshold = NULL
   }
   
   return(L)
