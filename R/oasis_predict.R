@@ -104,6 +104,14 @@ oasis_predict <- function(flair, ##flair volume of class nifti
 ) {
   if (!is.null(oasis_dataframe) && !is.null(voxel_selection)
       && !is.null(brain_mask)) {
+    if (return_preproc) {
+      warning(paste0("No preprocessing was done as the ", 
+                     "voxel_selection, brain mask, and data frame were", 
+                     " specified"))
+      return_preproc = FALSE
+    }
+    preproc = list()
+  } else {
     L = oasis_train_dataframe(flair = flair,
                               t1 = t1,
                               t2 = t2,
@@ -118,14 +126,6 @@ oasis_predict <- function(flair, ##flair volume of class nifti
     voxel_selection = L$voxel_selection
     preproc = L$preproc
     rm(list = "L")
-  } else {
-    if (return_preproc) {
-      warning(paste0("No preprocessing was done as the ", 
-                     "voxel_selection, brain mask, and data frame were", 
-                     " specified"))
-      return_preproc = FALSE
-    }
-    preproc = list()
   }
   
   
