@@ -3,7 +3,7 @@ Type: Package
 Title: Multiple Sclerosis Lesion Segmentation using Magnetic Resonance Imaging
     (MRI)
 Version: 3.0.4
-Date: 2018-02-15
+Date: 2018-02-20
 Authors@R: c(person(given = "Elizabeth M.", "Sweeney",  
   email = "elizabethmargaretsweeney@gmail.com", role = c("aut", "cre")), 
   person(given = "John", family = "Muschelli", email = "muschellij2@gmail.com", 
