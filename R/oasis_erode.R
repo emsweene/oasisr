@@ -21,8 +21,8 @@
 #'    httr::write_disk(path = niis))
 #'    httr::stop_for_status(req)
 #'
-#'  flair <- readnii(niis)
-#'  res = oasis_erode(flair > 0)
+#'  flair <- fast_readnii(niis)
+#'  res = oasis_erode(flair > 50, mm = c(2, 2, 2))
 #' }
 oasis_erode = function(mask, mm = c(5,5,5)) {
 
