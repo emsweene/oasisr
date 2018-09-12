@@ -1,5 +1,6 @@
 #' @title OASIS Image Preprocessing
-#' @description This function does the required preprocessing for OASIS for the FLAIR, T2,
+#' @description This function does the required preprocessing for OASIS 
+#' for the FLAIR, T2,
 #' T1, and PD volumes using FSL through \code{fslr}.
 #' The preprocessing steps are
 #' (1) inhomogeneity correct using \code{\link{fsl_biascorrect}}
@@ -10,6 +11,7 @@
 #' @param pd PD volume of class \code{\link{nifti}}
 #' @param brain_mask binary mask volume of class \code{\link{nifti}}
 #' @param verbose a logical value for printing diagnostic output
+#' @param bias_correct should the images be bias-field corrected?
 #' @param cores numeric indicating the number of cores to be used 
 #' (no more than 4 is useful for this software implementation)
 #' 
@@ -56,36 +58,37 @@
 #' @importFrom neurobase check_nifti datatyper mask_img
 oasis_preproc <- function(flair, #flair volume of class nifti
                           t1, # t1 volume of class nifti
-                          t2, # t2 volume of class nifti
+                          t2 = NULL, # t2 volume of class nifti
                           pd = NULL, # pd volume of class nifti
                           brain_mask = NULL,
+                          bias_correct = TRUE,
                           verbose = TRUE,
                           cores = 1
 ){
-
-
+  
+  
   study <- list(flair = flair, t1 = t1, t2 = t2, pd = pd)
-
+  
   # REMOVE NULL
   nulls = sapply(study, is.null)
   study = study[!nulls]
-
+  
   if (verbose) {
     message("Rigidly Registering Data to T1 Space\n")
   }
-
+  
   seqs = c("flair","t2", "pd")
   seqs = intersect(names(study), seqs)
-
+  
   ##rigidly register to the flair, t2, and pd to the t1 using fsl flirt
   study[seqs] <- mclapply(
     study[seqs], function(x)  {
-    tfile = tempfile(fileext = ".mat")
-    flirt(infile = x, omat = tfile,
-          reffile = study$t1,
-          retimg = TRUE,  dof = 6)
-          }, mc.cores = cores)
-
+      tfile = tempfile(fileext = ".mat")
+      flirt(infile = x, omat = tfile,
+            reffile = study$t1,
+            retimg = TRUE,  dof = 6)
+    }, mc.cores = cores)
+  
   if (verbose) {
     message("Running Brain Extraction Tool\n")
   }
@@ -99,19 +102,21 @@ oasis_preproc <- function(flair, #flair volume of class nifti
   study = check_nifti(study)
   study <- mclapply(study, mask_img, mask = brain_mask, 
                     mc.cores = cores)
-
+  
   ## inhomogeneity correction for all four modalities using fsl bias correct
-  if (verbose) {
-    message("# Running Inhomogeneity Correction\n")
+  if (bias_correct) {
+    if (verbose) {
+      message("# Running Inhomogeneity Correction\n")
+    }
+    study <- mclapply(study, fsl_biascorrect,
+                      retimg = TRUE,
+                      verbose = verbose,
+                      mc.cores = cores)
   }
-  study <- mclapply(study, fsl_biascorrect,
-                           retimg = TRUE,
-                           verbose = verbose,
-                           mc.cores = cores)
-
+  
   study$brain_mask <- brain_mask
-
+  
   ##return a list with the preprocessed images and a brain mask
   return(study)
-
-  }
+  
+}

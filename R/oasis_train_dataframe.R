@@ -33,6 +33,8 @@
 #' @param verbose print diagnostic output
 #' @param eroder Should \code{\link{fslerode}} or \code{\link{oasis_erode}} 
 #' be used
+#' @param ... additional elements to pass to 
+#' \code{\link{oasis_preproc}}
 #'
 #' @return If \code{return_preproc = FALSE} the function returns a
 #' \code{data.frame} for use with the \code{\link{oasis_training}} function.
@@ -83,7 +85,7 @@
 oasis_train_dataframe <- function(
   flair, ##flair volume of class nifti
   t1, ##t1 volume of class nifti
-  t2, ##t2 volume of class nifti
+  t2 = NULL, ##t2 volume of class nifti
   pd = NULL, ##pd volume of class nifti
   gold_standard = NULL, ##gold standard mask of class nifti
   brain_mask = NULL, ##brain mask of class nifti
@@ -95,7 +97,8 @@ oasis_train_dataframe <- function(
   cores = 1,
   sigma = c(10, 20),
   verbose = TRUE,
-  eroder = c("fsl", "oasis")
+  eroder = c("fsl", "oasis"),
+  ...
 )
 {
   if (verbose) {
@@ -138,7 +141,8 @@ oasis_train_dataframe <- function(
                                 pd = pd,
                                 cores = cores,
                                 brain_mask = brain_mask,
-                                verbose = verbose)
+                                verbose = verbose,
+                                ...)
     oasis_study <- preprocess[c("flair","t1", "t2", "pd")]
     brain_mask <- preprocess$brain_mask
   } else {

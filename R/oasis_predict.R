@@ -89,7 +89,7 @@
 
 oasis_predict <- function(flair, ##flair volume of class nifti
                           t1, ##t1 volume of class nifti
-                          t2, ##t2 volume of class nifti
+                          t2 = NULL, ##t2 volume of class nifti
                           pd = NULL, ##pd volume of class nifti
                           brain_mask = NULL, ##brain mask of class nifti
                           model = NULL, ##an OASIS model of class glm
@@ -134,14 +134,20 @@ oasis_predict <- function(flair, ##flair volume of class nifti
   }
   ## make the model predictions
   if (is.null(model)) {
-    predictions <- predict( oasis::oasis_model,
-                            newdata = oasis_dataframe,
-                            type = 'response')
-  } else {
-    predictions <- predict(model,
-                           newdata = oasis_dataframe,
-                           type = 'response')
+    model = oasis::oasis_model
+    have_pd = "PD" %in% colnames(oasis_dataframe)
+    have_t2 = "T2" %in% colnames(oasis_dataframe)
+    if (!have_t2 & !have_pd) {
+      model = oasis::not2_nopd_oasis_model
+    }
+    if (have_t2 & !have_pd) {
+      model = oasis::nopd_oasis_model
+    }
   }
+  
+  predictions <- predict(model,
+                         newdata = oasis_dataframe,
+                         type = 'response')
   
   
   ##put the predictions onto the brain
@@ -172,11 +178,14 @@ oasis_predict <- function(flair, ##flair volume of class nifti
            binary_map = binary_map,
            unsmoothed_map = predictions_nifti,
            flair = preproc$flair,
-           t1 = preproc$t1, t2 = preproc$t2,
-           pd = preproc$pd,
-           brain_mask = brain_mask,
-           voxel_selection = voxel_selection)
+           t1 = preproc$t1
+           )
+  L$t2 = preproc$t2
+  L$pd = preproc$pd
+  L$brain_mask = brain_mask
+  L$voxel_selection = voxel_selection
   L$threshold = threshold
+  
   
   if (!return_preproc) {
     L$flair = L$t1 = L$t2 = L$pd = NULL

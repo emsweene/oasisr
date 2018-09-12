@@ -4,11 +4,11 @@
 \alias{oasis_train_dataframe}
 \title{OASIS Training Data Frame}
 \usage{
-oasis_train_dataframe(flair, t1, t2, pd = NULL, gold_standard = NULL,
-  brain_mask = NULL, preproc = FALSE, normalize = TRUE, slices = NULL,
-  orientation = c("axial", "coronal", "sagittal"), return_preproc = FALSE,
-  cores = 1, sigma = c(10, 20), verbose = TRUE, eroder = c("fsl",
-  "oasis"))
+oasis_train_dataframe(flair, t1, t2 = NULL, pd = NULL,
+  gold_standard = NULL, brain_mask = NULL, preproc = FALSE,
+  normalize = TRUE, slices = NULL, orientation = c("axial",
+  "coronal", "sagittal"), return_preproc = FALSE, cores = 1,
+  sigma = c(10, 20), verbose = TRUE, eroder = c("fsl", "oasis"), ...)
 }
 \arguments{
 \item{flair}{FLAIR volume of class \code{\link{nifti}}}
@@ -53,6 +53,9 @@ the preprocessed images should be returned}
 
 \item{eroder}{Should \code{\link{fslerode}} or \code{\link{oasis_erode}} 
 be used}
+
+\item{...}{additional elements to pass to 
+\code{\link{oasis_preproc}}}
 }
 \value{
 If \code{return_preproc = FALSE} the function returns a

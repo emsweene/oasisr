@@ -17,14 +17,25 @@
 #' @format A \code{glm} object 
 "oasis_model"
 
-#' @title Updated OASIS glm Object 
+#' @title OASIS model without PD
 #'
-#' @description A \code{glm} object containing the OASIS model from the updated, corrected
-#' data. 
+#' @description A \code{glm} object containing the OASIS model 
+#' from the updated, corrected
+#' data, fit without the PD data.
 #' @name nopd_oasis_model
 #' @docType data
 #' @format A \code{glm} object 
 "nopd_oasis_model"
+
+#' @title OASIS model without PD or T2
+#'
+#' @description A \code{glm} object containing the OASIS model 
+#' from the updated, corrected
+#' data, fit without the PD or T2 data.
+#' @name not2_nopd_oasis_model
+#' @docType data
+#' @format A \code{glm} object 
+"not2_nopd_oasis_model"
 
 
 #' @title Example \code{data.frame} of MS voxels

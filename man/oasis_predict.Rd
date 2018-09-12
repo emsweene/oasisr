@@ -4,9 +4,10 @@
 \alias{oasis_predict}
 \title{OASIS Prediction}
 \usage{
-oasis_predict(flair, t1, t2, pd = NULL, brain_mask = NULL, model = NULL,
-  return_preproc = FALSE, binary = FALSE, threshold = 0.16,
-  verbose = TRUE, oasis_dataframe = NULL, voxel_selection = NULL, ...)
+oasis_predict(flair, t1, t2 = NULL, pd = NULL, brain_mask = NULL,
+  model = NULL, return_preproc = FALSE, binary = FALSE,
+  threshold = 0.16, verbose = TRUE, oasis_dataframe = NULL,
+  voxel_selection = NULL, ...)
 }
 \arguments{
 \item{flair}{flair volume of class \code{\link{nifti}}}
