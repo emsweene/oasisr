@@ -143,6 +143,9 @@ oasis_predict <- function(flair, ##flair volume of class nifti
     if (have_t2 & !have_pd) {
       model = oasis::nopd_oasis_model
     }
+    if (!have_t2 & have_pd) {
+      model = oasis::not2_oasis_model
+    }
   }
   
   predictions <- predict(model,

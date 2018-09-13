@@ -38,6 +38,17 @@
 "not2_nopd_oasis_model"
 
 
+#' @title OASIS model without T2
+#'
+#' @description A \code{glm} object containing the OASIS model 
+#' from the updated, corrected
+#' data, fit without the T2 data.
+#' @name not2_oasis_model
+#' @docType data
+#' @format A \code{glm} object 
+"not2_oasis_model"
+
+
 #' @title Example \code{data.frame} of MS voxels
 #'
 #' @description A \code{data.frame} of MS voxels for OASIS prediction
