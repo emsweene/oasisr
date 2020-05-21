@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Image Dimension Correction — correct_image_dim • oasis</title>
+<title>OASIS model without PD — nopd_oasis_model • oasis</title>
 
 
 <!-- jquery -->
@@ -39,9 +39,10 @@
 
 
 
-<meta property="og:title" content="Image Dimension Correction — correct_image_dim" />
-<meta property="og:description" content="This function takes an image and drops dimensions
-until the volume is a user specified dimension." />
+<meta property="og:title" content="OASIS model without PD — nopd_oasis_model" />
+<meta property="og:description" content="A glm object containing the OASIS model 
+from the updated, corrected
+data, fit without the PD data." />
 
 
 
@@ -107,41 +108,24 @@ until the volume is a user specified dimension." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Image Dimension Correction</h1>
+    <h1>OASIS model without PD</h1>
     
-    <div class="hidden name"><code>correct_image_dim.Rd</code></div>
+    <div class="hidden name"><code>nopd_oasis_model.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>This function takes an image and drops dimensions
-until the volume is a user specified dimension.</p>
+    <p>A <code>glm</code> object containing the OASIS model 
+from the updated, corrected
+data, fit without the PD data.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>correct_image_dim</span>(<span class='no'>image</span>, <span class='kw'>dim</span> <span class='kw'>=</span> <span class='fl'>3</span>)</pre>
+    <pre class="usage"><span class='no'>nopd_oasis_model</span></pre>
 
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>image</th>
-      <td><p>volume of class <code>nifti</code></p></td>
-    </tr>
-    <tr>
-      <th>dim</th>
-      <td><p>scalar value of desired image dimension</p></td>
-    </tr>
-    </table>
 
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+    <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
 
-    <p>Returns a volume of class <code>nifti</code> of desired dimension.</p>
+    <p>A <code>glm</code> object</p>
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>neurobase</span>)
-<span class='no'>flair</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/neurobase/man/readNIfTI2.html'>readnii</a></span>(<span class='st'>'path/to/flair'</span>, <span class='kw'>reorient</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
-<span class='no'>flair</span> <span class='kw'>&lt;-</span> <span class='fu'>correct_image_dim</span>(<span class='no'>flair</span>, <span class='kw'>dim</span> <span class='kw'>=</span> <span class='fl'>3</span>)
-}</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

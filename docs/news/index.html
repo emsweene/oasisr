@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Image Dimension Correction — correct_image_dim • oasis</title>
+<title>Changelog • oasis</title>
 
 
 <!-- jquery -->
@@ -39,9 +39,7 @@
 
 
 
-<meta property="og:title" content="Image Dimension Correction — correct_image_dim" />
-<meta property="og:description" content="This function takes an image and drops dimensions
-until the volume is a user specified dimension." />
+<meta property="og:title" content="Changelog" />
 
 
 
@@ -60,7 +58,7 @@ until the volume is a user specified dimension." />
   </head>
 
   <body data-spy="scroll" data-target="#toc">
-    <div class="container template-reference-topic">
+    <div class="container template-news">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -107,47 +105,37 @@ until the volume is a user specified dimension." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Image Dimension Correction</h1>
-    
-    <div class="hidden name"><code>correct_image_dim.Rd</code></div>
+      <h1 data-toc-skip>Changelog <small></small></h1>
+      
     </div>
 
-    <div class="ref-description">
-    <p>This function takes an image and drops dimensions
-until the volume is a user specified dimension.</p>
-    </div>
-
-    <pre class="usage"><span class='fu'>correct_image_dim</span>(<span class='no'>image</span>, <span class='kw'>dim</span> <span class='kw'>=</span> <span class='fl'>3</span>)</pre>
-
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>image</th>
-      <td><p>volume of class <code>nifti</code></p></td>
-    </tr>
-    <tr>
-      <th>dim</th>
-      <td><p>scalar value of desired image dimension</p></td>
-    </tr>
-    </table>
-
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
-
-    <p>Returns a volume of class <code>nifti</code> of desired dimension.</p>
-
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>neurobase</span>)
-<span class='no'>flair</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/neurobase/man/readNIfTI2.html'>readnii</a></span>(<span class='st'>'path/to/flair'</span>, <span class='kw'>reorient</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
-<span class='no'>flair</span> <span class='kw'>&lt;-</span> <span class='fu'>correct_image_dim</span>(<span class='no'>flair</span>, <span class='kw'>dim</span> <span class='kw'>=</span> <span class='fl'>3</span>)
-}</div></pre>
+    <div id="oasis-301" class="section level1">
+<h1 class="page-header" data-toc-text="3.0.1">
+<a href="#oasis-301" class="anchor"></a>oasis 3.0.1<small> Unreleased </small>
+</h1>
+<ul>
+<li>Added an example data set and ready to send to CRAN</li>
+</ul>
+</div>
+    <div id="oasis-30" class="section level1">
+<h1 class="page-header" data-toc-text="3.0">
+<a href="#oasis-30" class="anchor"></a>oasis 3.0<small> Unreleased </small>
+</h1>
+<ul>
+<li><p>Added the corrected <code>oasis_model</code> and <code>nopd_oasis_model</code> to the package</p></li>
+<li><p>The original model from the paper is located at: <code>original_oasis_model</code>.</p></li>
+<li><p>Adding package back to CRAN after archiving.</p></li>
+<li><p>Added a <code>NEWS.md</code> file to track changes to the package.</p></li>
+</ul>
+</div>
   </div>
+
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
       <h2 data-toc-skip>Contents</h2>
     </nav>
   </div>
+
 </div>
 
 

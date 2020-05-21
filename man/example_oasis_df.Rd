@@ -4,8 +4,10 @@
 \name{example_oasis_df}
 \alias{example_oasis_df}
 \title{Example \code{data.frame} of MS voxels}
-\format{A \code{data.frame} with 100 rows and 13 columns, corresponding to the
-predictors of the OASIS model.}
+\format{
+A \code{data.frame} with 100 rows and 13 columns, corresponding to the
+predictors of the OASIS model.
+}
 \usage{
 example_oasis_df
 }

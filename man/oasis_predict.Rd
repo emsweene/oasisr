@@ -4,9 +4,21 @@
 \alias{oasis_predict}
 \title{OASIS Prediction}
 \usage{
-oasis_predict(flair, t1, t2, pd = NULL, brain_mask = NULL, model = NULL,
-  return_preproc = FALSE, binary = FALSE, threshold = 0.16,
-  verbose = TRUE, ...)
+oasis_predict(
+  flair,
+  t1,
+  t2 = NULL,
+  pd = NULL,
+  brain_mask = NULL,
+  model = NULL,
+  return_preproc = FALSE,
+  binary = FALSE,
+  threshold = 0.16,
+  verbose = TRUE,
+  oasis_dataframe = NULL,
+  voxel_selection = NULL,
+  ...
+)
 }
 \arguments{
 \item{flair}{flair volume of class \code{\link{nifti}}}
@@ -36,6 +48,15 @@ should be returned by thresholding the probability map}
 for the probability map, with default of 0.16 for the OASIS paper}
 
 \item{verbose}{print diagnostic messages}
+
+\item{oasis_dataframe}{if \code{\link{oasis_train_dataframe}}
+was already run, specify the \code{data.frame} and 
+\code{voxel_selection} and \code{brain_mask} to make prediction}
+
+\item{voxel_selection}{image of selected voxels.
+If \code{\link{oasis_train_dataframe}}
+was already run, specify the \code{data.frame} and 
+\code{voxel_selection} and \code{brain_mask} to make prediction}
 
 \item{...}{options passed to \code{\link{oasis_train_dataframe}}}
 }

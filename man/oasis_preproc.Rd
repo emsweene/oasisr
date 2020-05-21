@@ -4,8 +4,16 @@
 \alias{oasis_preproc}
 \title{OASIS Image Preprocessing}
 \usage{
-oasis_preproc(flair, t1, t2, pd = NULL, brain_mask = NULL, verbose = TRUE,
-  cores = 1)
+oasis_preproc(
+  flair,
+  t1,
+  t2 = NULL,
+  pd = NULL,
+  brain_mask = NULL,
+  bias_correct = TRUE,
+  verbose = TRUE,
+  cores = 1
+)
 }
 \arguments{
 \item{flair}{FLAIR volume of class \code{\link{nifti}}}
@@ -18,6 +26,8 @@ oasis_preproc(flair, t1, t2, pd = NULL, brain_mask = NULL, verbose = TRUE,
 
 \item{brain_mask}{binary mask volume of class \code{\link{nifti}}}
 
+\item{bias_correct}{should the images be bias-field corrected?}
+
 \item{verbose}{a logical value for printing diagnostic output}
 
 \item{cores}{numeric indicating the number of cores to be used 
@@ -29,7 +39,8 @@ namely the inhomogeneity corrected FLAIR, T1, T2, and PD registered to the
 space of the T1 volume.
 }
 \description{
-This function does the required preprocessing for OASIS for the FLAIR, T2,
+This function does the required preprocessing for OASIS 
+for the FLAIR, T2,
 T1, and PD volumes using FSL through \code{fslr}.
 The preprocessing steps are
 (1) inhomogeneity correct using \code{\link{fsl_biascorrect}}
