@@ -4,7 +4,9 @@
 \name{original_oasis_model}
 \alias{original_oasis_model}
 \title{OASIS glm Object}
-\format{A \code{glm} object}
+\format{
+A \code{glm} object
+}
 \usage{
 original_oasis_model
 }

@@ -4,7 +4,9 @@
 \name{nopd_oasis_model}
 \alias{nopd_oasis_model}
 \title{OASIS model without PD}
-\format{A \code{glm} object}
+\format{
+A \code{glm} object
+}
 \usage{
 nopd_oasis_model
 }

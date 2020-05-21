@@ -18,3 +18,5 @@ sticker\.png
 ^sticker\.png$
 ^README\.Rmd$
 ^cran-comments\.md$
+^_pkgdown\.yml$
+^pkgdown$

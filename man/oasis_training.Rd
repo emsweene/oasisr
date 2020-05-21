@@ -4,9 +4,12 @@
 \alias{oasis_training}
 \title{OASIS Training}
 \usage{
-oasis_training(..., formula = GoldStandard ~ FLAIR_10 * FLAIR + FLAIR_20
-  * FLAIR + PD_10 * PD + PD_20 * PD + T2_10 * T2 + T2_20 * T2 + T1_10 * T1
-  + T1_20 * T1, remove_preproc = FALSE)
+oasis_training(
+  ...,
+  formula = GoldStandard ~ FLAIR_10 * FLAIR + FLAIR_20 * FLAIR + PD_10 * PD + PD_20 *
+    PD + T2_10 * T2 + T2_20 * T2 + T1_10 * T1 + T1_20 * T1,
+  remove_preproc = FALSE
+)
 }
 \arguments{
 \item{...}{\code{data.frame}(s) produced by the

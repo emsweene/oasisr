@@ -7,8 +7,12 @@
 \usage{
 voxel_selection(flair, brain_mask, cutoff)
 
-voxel_selection_with_erosion(flair, brain_mask, verbose = TRUE,
-  eroder = c("fsl", "oasis"))
+voxel_selection_with_erosion(
+  flair,
+  brain_mask,
+  verbose = TRUE,
+  eroder = c("fsl", "oasis")
+)
 }
 \arguments{
 \item{flair}{FLAIR volume of class \code{\link{nifti}}}

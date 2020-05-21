@@ -86,24 +86,30 @@
 #' @importFrom fslr fslsmooth fsl_smooth
 #' @importFrom neurobase datatyper
 #' @importFrom oro.nifti convert.bitpix convert.datatype
-
-oasis_predict <- function(flair, ##flair volume of class nifti
-                          t1, ##t1 volume of class nifti
-                          t2 = NULL, ##t2 volume of class nifti
-                          pd = NULL, ##pd volume of class nifti
-                          brain_mask = NULL, ##brain mask of class nifti
-                          model = NULL, ##an OASIS model of class glm
-                          return_preproc = FALSE, 
-                          ##option to return the preprocessed data
-                          binary = FALSE,
-                          threshold = 0.16,
-                          verbose = TRUE,
-                          oasis_dataframe = NULL,
-                          voxel_selection = NULL,
-                          ...
+oasis_predict <- function(
+  flair, ##flair volume of class nifti
+  t1, ##t1 volume of class nifti
+  t2 = NULL, ##t2 volume of class nifti
+  pd = NULL, ##pd volume of class nifti
+  brain_mask = NULL, ##brain mask of class nifti
+  model = NULL, ##an OASIS model of class glm
+  return_preproc = FALSE, 
+  ##option to return the preprocessed data
+  binary = FALSE,
+  threshold = 0.16,
+  verbose = TRUE,
+  oasis_dataframe = NULL,
+  voxel_selection = NULL,
+  ...
 ) {
-  if (!is.null(oasis_dataframe) && !is.null(voxel_selection)
-      && !is.null(brain_mask)) {
+  have_df = !is.null(oasis_dataframe)
+  have_vs = !is.null(voxel_selection)
+  have_bm = !is.null(brain_mask)
+  if (have_df & (!have_vs | !have_bm)) {
+    stop(paste0("oasis_dataframe is specified but", 
+                " need voxel_selection and brain mask!"))
+  }
+  if (have_df & have_vs & have_bm) {
     if (return_preproc) {
       warning(paste0("No preprocessing was done as the ", 
                      "voxel_selection, brain mask, and data frame were", 
@@ -112,14 +118,15 @@ oasis_predict <- function(flair, ##flair volume of class nifti
     }
     preproc = list()
   } else {
-    L = oasis_train_dataframe(flair = flair,
-                              t1 = t1,
-                              t2 = t2,
-                              pd = pd,
-                              brain_mask = brain_mask,
-                              verbose = verbose,
-                              return_preproc = TRUE,
-                              ...)
+    L = oasis_train_dataframe(
+      flair = flair,
+      t1 = t1,
+      t2 = t2,
+      pd = pd,
+      brain_mask = brain_mask,
+      verbose = verbose,
+      return_preproc = TRUE,
+      ...)
     
     oasis_dataframe = L$oasis_dataframe
     brain_mask = L$brain_mask
@@ -182,7 +189,7 @@ oasis_predict <- function(flair, ##flair volume of class nifti
            unsmoothed_map = predictions_nifti,
            flair = preproc$flair,
            t1 = preproc$t1
-           )
+  )
   L$t2 = preproc$t2
   L$pd = preproc$pd
   L$brain_mask = brain_mask

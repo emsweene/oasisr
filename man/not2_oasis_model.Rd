@@ -4,7 +4,9 @@
 \name{not2_oasis_model}
 \alias{not2_oasis_model}
 \title{OASIS model without T2}
-\format{A \code{glm} object}
+\format{
+A \code{glm} object
+}
 \usage{
 not2_oasis_model
 }

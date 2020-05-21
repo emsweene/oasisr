@@ -4,8 +4,16 @@
 \alias{oasis_preproc}
 \title{OASIS Image Preprocessing}
 \usage{
-oasis_preproc(flair, t1, t2 = NULL, pd = NULL, brain_mask = NULL,
-  bias_correct = TRUE, verbose = TRUE, cores = 1)
+oasis_preproc(
+  flair,
+  t1,
+  t2 = NULL,
+  pd = NULL,
+  brain_mask = NULL,
+  bias_correct = TRUE,
+  verbose = TRUE,
+  cores = 1
+)
 }
 \arguments{
 \item{flair}{FLAIR volume of class \code{\link{nifti}}}
